@@ -117,11 +117,10 @@
     (cond ((empty? s) t)
           ((empty? t) s)
           ; YOUR-CODE-HERE
-          (((= (car s) (car t)) (cons (car s) (intersect (cdr s) (cdr t))))
-          ((< (car s) (car t)) (intersect (cdr s) t))
-          (else (intersect s (cdr t)))
+          ((= (car s) (car t)) (cons (car s) (union (cdr s) (cdr t))))
+          ((< (car s) (car t)) (cons (car s) (union (cdr s) t)))
+                         (else (cons (car t) (union s (cdr t))))
           ))
-
 
 ; Binary search trees
 
@@ -136,7 +135,9 @@
 (define (in? t v)
     (cond ((empty? t) false)
           ; YOUR-CODE-HERE
-          (else nil)
+          ((= (entry t) v) true)
+          ((< (entry t) v) (in? (right t) v))
+          (else (in? (left t) v))
           ))
 
 ; Equivalent Python code, for your reference:
@@ -153,5 +154,6 @@
 
 (define (as-list t)
     ; YOUR-CODE-HERE
-    (else nil)
-    )
+    (cond ((empty? t) '())
+          (else (append (as-list (left t)) (append (list (entry t)) (as-list (right t)))))
+    ))
