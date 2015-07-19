@@ -41,4 +41,3 @@ def my_login():
     True
     """
     return 'cs61a-01'
-
